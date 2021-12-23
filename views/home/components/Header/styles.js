@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Layout, Menu, Row } from 'antd';
+import {Layout, Menu, Row, Statistic, Tabs} from 'antd';
 
 const { Header } = Layout;
 
@@ -34,9 +34,15 @@ export const StyledMenu = styled(Menu)`
   border-bottom: 0;
 
   && {
-    .ant-menu-item {
+    .ant-menu-item,
+    .ant-menu-item:hover {
       font-weight: 600;
-      padding: 0 60px;
+      padding: 0 32px;
+      color: #fff;
+      border-bottom: none;
+    }
+
+    .ant-menu-overflow-item-rest {
       color: #fff;
     }
   }
@@ -46,8 +52,14 @@ export const StyledLeftMenu = styled(StyledMenu)`
   justify-content: end;
 
   && {
-    .ant-menu-item {
+    .ant-menu-item,
+    .ant-menu-item:hover {
       padding: 0px 32px;
+      color: #001b54;
+      border-bottom: none;
+    }
+
+    .ant-menu-overflow-item-rest {
       color: #001b54;
     }
   }
@@ -70,7 +82,7 @@ export const Logo = styled.div`
 `;
 
 export const StyledRow = styled(Row)`
-  height: 30vh;
+  height: 40vh;
 `;
 
 export const TitleWrapper = styled.div`
@@ -81,9 +93,61 @@ export const TitleWrapper = styled.div`
   width: 100%;
 
   h1 {
-    font-size: 64px;
+    font-size: 56px;
     margin-bottom: 0;
     padding: 0 48px;
     color: #001b54;
   }
+`;
+
+export const TabWrapper = styled.div`
+  margin: 0 auto;
+  top: 40%;
+  position: absolute;
+  transform: translateY(-40%);
+  
+  width: 100%;
+`;
+
+export const StyledTabs = styled(Tabs)`
+  && {
+    .ant-tabs-nav:before {
+      border-bottom: none;
+    }
+
+    .ant-tabs-tab-btn {
+      font-size: 20px;
+    }
+
+    .ant-tabs-tab {
+      padding-left: 24px;
+      padding-right: 24px;
+      color: #6a7ba3;
+    }
+    
+    .ant-tabs-ink-bar {
+      background-color: #fff;
+    }
+    
+    .ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: #fff;
+      }
+    }
+    
+    .ant-tabs-content-holder {
+      margin-top: 12px;
+    }
+  }
+`;
+
+export const StyledStatistic = styled.div`
+  height: 100%;
+  text-align: center;
+`;
+
+export const TextWrapper = styled.div`
+  width: 120px;
+  color: #fff;
+  text-align: center;
 `;

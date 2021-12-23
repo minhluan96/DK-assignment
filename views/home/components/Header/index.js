@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Layout, Menu, Row, Typography } from 'antd';
+import { Col, Layout, Menu, Row, Tabs, Typography } from 'antd';
 import {
   HeaderContainer,
   LeftBanner,
@@ -9,11 +9,15 @@ import {
   StyledLeftMenu,
   StyledMenu,
   StyledRow,
+  StyledStatistic,
+  StyledTabs,
+  TabWrapper, TextWrapper,
   TitleWrapper,
 } from './styles';
 import logo from 'assets/images/logo.png';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
+const { TabPane } = Tabs;
 
 const MENU_ITEMS = [
   {
@@ -42,12 +46,48 @@ const MENU_ITEMS = [
   },
 ];
 
+const TAB_DATA = [
+  {
+    title: 'different IT Software Networks',
+    statistic: 6,
+  },
+  {
+    title: 'partners',
+    statistic: 32,
+  },
+  {
+    title: 'countries',
+    statistic: 4,
+  },
+];
+
+const TabDataContent = () => {
+  return (
+    <Row align='middle' justify='center' gutter={[64, 64]}>
+      {TAB_DATA.map(({ title, statistic }) => {
+        return (
+          <Col span={4} style={{ display: 'flex', alignSelf: 'flex-start' }}>
+            <StyledStatistic>
+              <Title level={1} style={{ color: '#cfe5ff', fontWeight: 700 }}>
+                {statistic}
+              </Title>
+              <TextWrapper>
+                <Text style={{ color: '#fff' }}>{title}</Text>
+              </TextWrapper>
+            </StyledStatistic>
+          </Col>
+        );
+      })}
+    </Row>
+  );
+};
+
 export default function Header() {
   return (
     <HeaderContainer>
       <StyledHeader>
         <StyledRow>
-          <Col span={6}>
+          <Col span={8}>
             <LeftBanner>
               <Logo $img={logo} />
               <StyledLeftMenu mode='horizontal' defaultSelectedKeys={['1']}>
@@ -64,13 +104,23 @@ export default function Header() {
               </TitleWrapper>
             </LeftBanner>
           </Col>
-          <Col span={18}>
+          <Col span={16}>
             <RightBanner>
               <StyledMenu mode='horizontal'>
                 {MENU_ITEMS.map(({ key, title }) => {
                   return <Menu.Item key={key}>{title}</Menu.Item>;
                 })}
               </StyledMenu>
+              <TabWrapper>
+                <StyledTabs centered size='large' tabBarGutter={24}>
+                  <TabPane tab='Now' key='now'>
+                    <TabDataContent />
+                  </TabPane>
+                  <TabPane tab='Future' key='future'>
+                    <TabDataContent />
+                  </TabPane>
+                </StyledTabs>
+              </TabWrapper>
             </RightBanner>
           </Col>
         </StyledRow>
