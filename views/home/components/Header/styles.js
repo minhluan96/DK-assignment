@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import {Layout, Menu, Row, Statistic, Tabs} from 'antd';
+import { Layout, Menu, Row, Statistic, Tabs } from 'antd';
 
 const { Header } = Layout;
 
 export const HeaderContainer = styled.div`
-  min-height: 30vh;
+  min-height: 40vh;
   background-color: #fff;
 `;
 
@@ -18,12 +18,15 @@ export const StyledHeader = styled(Header)`
 
 export const LeftBanner = styled.div`
   background: #fff;
+  padding-top: 64px;
+  padding-left: 24px;
   height: 100%;
   width: 100%;
 `;
 
 export const RightBanner = styled.div`
   background: #001b54;
+  padding-right: 24px;
   height: 100%;
   width: 100%;
 `;
@@ -46,6 +49,20 @@ export const StyledMenu = styled(Menu)`
       color: #fff;
     }
   }
+`;
+
+export const ToolbarMenu = styled(StyledMenu)`
+  justify-content: end;
+  background: #181949;
+
+  .ant-menu-item,
+  .ant-menu-item:hover {
+    font-weight: 400;
+  }
+`;
+
+export const ToolbarWrapper = styled.div`
+  height: 64px;
 `;
 
 export const StyledLeftMenu = styled(StyledMenu)`
@@ -105,7 +122,7 @@ export const TabWrapper = styled.div`
   top: 40%;
   position: absolute;
   transform: translateY(-40%);
-  
+
   width: 100%;
 `;
 
@@ -124,19 +141,19 @@ export const StyledTabs = styled(Tabs)`
       padding-right: 24px;
       color: #6a7ba3;
     }
-    
+
     .ant-tabs-ink-bar {
       background-color: #fff;
     }
-    
+
     .ant-tabs-tab-active {
       .ant-tabs-tab-btn {
         color: #fff;
       }
     }
-    
+
     .ant-tabs-content-holder {
-      margin-top: 12px;
+      margin-top: 24px;
     }
   }
 `;
@@ -150,4 +167,15 @@ export const TextWrapper = styled.div`
   width: 120px;
   color: #fff;
   text-align: center;
+`;
+
+export const InfoWrapper = styled.div`
+  height: 64px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffd1e8;
+  font-size: 16px;
 `;

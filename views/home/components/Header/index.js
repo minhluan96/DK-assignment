@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Layout, Menu, Row, Tabs, Typography } from 'antd';
 import {
   HeaderContainer,
+  InfoWrapper,
   LeftBanner,
   Logo,
   RightBanner,
@@ -11,10 +12,14 @@ import {
   StyledRow,
   StyledStatistic,
   StyledTabs,
-  TabWrapper, TextWrapper,
+  TabWrapper,
+  TextWrapper,
   TitleWrapper,
+  ToolbarMenu,
+  ToolbarWrapper,
 } from './styles';
 import logo from 'assets/images/logo.png';
+import Media from '../../../../components/Media';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -43,6 +48,21 @@ const MENU_ITEMS = [
   {
     key: 'ssl',
     title: 'SSL',
+  },
+];
+
+const TOOLBAR_MENU_ITEMS = [
+  {
+    key: 'en',
+    title: 'EN',
+  },
+  {
+    key: 'company',
+    title: 'Company',
+  },
+  {
+    key: 'partnerMarketPlace',
+    title: 'Partner Market Place',
   },
 ];
 
@@ -84,47 +104,74 @@ const TabDataContent = () => {
 
 export default function Header() {
   return (
-    <HeaderContainer>
-      <StyledHeader>
-        <StyledRow>
-          <Col span={8}>
-            <LeftBanner>
-              <Logo $img={logo} />
-              <StyledLeftMenu mode='horizontal' defaultSelectedKeys={['1']}>
-                <Menu.Item key='home' icon={<i className='uil uil-home-alt' />}>
-                  Home
-                </Menu.Item>
-              </StyledLeftMenu>
-              <TitleWrapper>
-                <Title level={1}>
-                  Asia IT
-                  <br />
-                  Market Place
-                </Title>
-              </TitleWrapper>
-            </LeftBanner>
-          </Col>
-          <Col span={16}>
-            <RightBanner>
-              <StyledMenu mode='horizontal'>
-                {MENU_ITEMS.map(({ key, title }) => {
-                  return <Menu.Item key={key}>{title}</Menu.Item>;
-                })}
-              </StyledMenu>
-              <TabWrapper>
-                <StyledTabs centered size='large' tabBarGutter={24}>
-                  <TabPane tab='Now' key='now'>
-                    <TabDataContent />
-                  </TabPane>
-                  <TabPane tab='Future' key='future'>
-                    <TabDataContent />
-                  </TabPane>
-                </StyledTabs>
-              </TabWrapper>
-            </RightBanner>
-          </Col>
-        </StyledRow>
-      </StyledHeader>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <StyledHeader>
+          <StyledRow>
+            <Col span={8}>
+              <LeftBanner>
+                <Logo $img={logo} />
+                <StyledLeftMenu mode='horizontal' defaultSelectedKeys={['1']}>
+                  <Menu.Item
+                    key='home'
+                    icon={<i className='uil uil-home-alt' />}
+                  >
+                    Home
+                  </Menu.Item>
+                </StyledLeftMenu>
+                <TitleWrapper>
+                  <Title level={1}>
+                    Asia IT
+                    <br />
+                    Market Place
+                  </Title>
+                </TitleWrapper>
+              </LeftBanner>
+            </Col>
+            <Col span={16}>
+              <RightBanner>
+                <ToolbarWrapper mode='horizontal'>
+                  <ToolbarMenu mode='horizontal'>
+                    {TOOLBAR_MENU_ITEMS.map(({ key, title }) => {
+                      return (
+                        <Menu.Item key={key}>
+                          <Media
+                            verticalAlign='center'
+                            extra={<i className='uil uil-angle-down' />}
+                          >
+                            <Text style={{ color: '#fff' }}>{title}</Text>
+                          </Media>
+                        </Menu.Item>
+                      );
+                    })}
+                  </ToolbarMenu>
+                </ToolbarWrapper>
+                <StyledMenu mode='horizontal'>
+                  {MENU_ITEMS.map(({ key, title }) => {
+                    return <Menu.Item key={key}>{title}</Menu.Item>;
+                  })}
+                </StyledMenu>
+                <TabWrapper>
+                  <StyledTabs centered size='large' tabBarGutter={24}>
+                    <TabPane tab='Now' key='now'>
+                      <TabDataContent />
+                    </TabPane>
+                    <TabPane tab='Future' key='future'>
+                      <TabDataContent />
+                    </TabPane>
+                  </StyledTabs>
+                </TabWrapper>
+              </RightBanner>
+            </Col>
+          </StyledRow>
+        </StyledHeader>
+      </HeaderContainer>
+      <InfoWrapper>
+        <Text>
+          You are now viewing an <b>IT Software</b> that has been verified by{' '}
+          <b>over 1 million users.</b>
+        </Text>
+      </InfoWrapper>
+    </>
   );
 }
