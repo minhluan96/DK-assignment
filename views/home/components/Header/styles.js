@@ -6,6 +6,14 @@ const { Header } = Layout;
 export const HeaderContainer = styled.div`
   min-height: 40vh;
   background-color: #fff;
+
+  @media (max-width: 768px) {
+    min-height: 80vh;
+  }
+
+  @media (max-width: 576px) {
+    min-height: 100vh;
+  }
 `;
 
 export const StyledHeader = styled(Header)`
@@ -22,6 +30,10 @@ export const LeftBanner = styled.div`
   padding-left: 24px;
   height: 100%;
   width: 100%;
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
 `;
 
 export const RightBanner = styled.div`
@@ -99,7 +111,16 @@ export const Logo = styled.div`
 `;
 
 export const StyledRow = styled(Row)`
-  height: 40vh;
+  min-height: 40vh;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    min-height: 80vh;
+  }
+
+  @media (max-width: 576px) {
+    min-height: 100vh;
+  }
 `;
 
 export const TitleWrapper = styled.div`
@@ -115,13 +136,22 @@ export const TitleWrapper = styled.div`
     padding: 0 48px;
     color: #001b54;
   }
+
+  @media (max-width: 768px) {
+    top: 70%;
+    transform: translateY(-70%);
+    h1 {
+      font-size: 26px;
+      padding-left: 56px;
+    }
+  }
 `;
 
 export const TabWrapper = styled.div`
   margin: 0 auto;
-  top: 40%;
+  top: 48%;
   position: absolute;
-  transform: translateY(-40%);
+  transform: translateY(-48%);
 
   width: 100%;
 `;
@@ -178,4 +208,9 @@ export const InfoWrapper = styled.div`
   justify-content: center;
   background-color: #ffd1e8;
   font-size: 16px;
+`;
+
+export const StyledHome = styled.div`
+  float: right;
+  padding-right: 32px;
 `;

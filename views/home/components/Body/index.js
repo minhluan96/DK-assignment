@@ -101,7 +101,7 @@ const BANNER_DATA = [
 
 const BannerImage = ({ title, img }) => {
   return (
-    <Col span={8}>
+    <Col xs={24} sm={24} md={8} lg={8} xl={8}>
       <ImgWrapper>
         <StyledImg alt={title} src={img} />
       </ImgWrapper>
@@ -114,7 +114,7 @@ const Banner = ({ title, img, tags, iconAlignment, index }) => {
     <BannerWrapper $rowIndex={index}>
       <Row align='middle' gutter={[24, 24]} justify='center'>
         {iconAlignment === 'left' && <BannerImage title={title} img={img} />}
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <InfoWrapper>
             <Title level={3}>{title}</Title>
             <TagsWrapper>

@@ -1,5 +1,6 @@
 import 'antd/dist/antd.css';
 import Head from 'next/head';
+import 'styles/globals.css';
 import configureStore from 'config/store';
 import { Provider } from 'react-redux';
 

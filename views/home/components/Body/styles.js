@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Row} from "antd";
+import { Row } from 'antd';
 
 export const TitleWrapper = styled.div`
   width: 100%;
@@ -7,6 +7,7 @@ export const TitleWrapper = styled.div`
   padding: 64px 0 24px;
   align-items: center;
   background: #fff;
+  text-align: center;
 `;
 
 export const InfoWrapper = styled.div`
@@ -24,6 +25,11 @@ export const TagsWrapper = styled.div`
 export const StyledImg = styled.img`
   width: 256px;
   height: 256px;
+
+  @media (max-width: 768px) {
+    width: 128px;
+    height: 128px;
+  }
 `;
 
 export const BannerWrapper = styled.div`

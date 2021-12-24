@@ -148,7 +148,7 @@ export default function Footer() {
         <Row align='middle' justify='center' gutter={[16, 24]}>
           {PRICE_DATA.map((price) => {
             return (
-              <Col span={4} key={price.title}>
+              <Col xs={24} sm={12} md={12} lg={8} xl={4} key={price.title}>
                 <PriceCard
                   {...price}
                   onClick={onClickCard}
@@ -163,7 +163,7 @@ export default function Footer() {
       <StyledRow align='top' justify='center'>
         {OFFICE_DATA.map((item) => {
           return (
-            <Col span={8}>
+            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
               <OfficeInfo {...item} />
             </Col>
           );

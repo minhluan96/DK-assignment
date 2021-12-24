@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import HomeView from '../views/home';
 
 export default function Home() {
   return <HomeView />;
 }
 
-Home.getLayout = (page) => <>{page}</>;
+Home.getLayout = (page) => <div>{page}</div>;

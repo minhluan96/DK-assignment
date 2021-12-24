@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Layout, Menu, Row, Tabs, Typography } from 'antd';
+import { Button, Col, Layout, Menu, Row, Tabs, Typography } from 'antd';
 import {
   HeaderContainer,
   InfoWrapper,
@@ -7,6 +7,7 @@ import {
   Logo,
   RightBanner,
   StyledHeader,
+  StyledHome,
   StyledLeftMenu,
   StyledMenu,
   StyledRow,
@@ -86,7 +87,14 @@ const TabDataContent = () => {
     <Row align='middle' justify='center' gutter={[64, 64]}>
       {TAB_DATA.map(({ title, statistic }) => {
         return (
-          <Col span={4} style={{ display: 'flex', alignSelf: 'flex-start' }}>
+          <Col
+            xs={8}
+            sm={8}
+            md={8}
+            lg={4}
+            xl={4}
+            style={{ display: 'flex', alignSelf: 'flex-start' }}
+          >
             <StyledStatistic>
               <Title level={1} style={{ color: '#cfe5ff', fontWeight: 700 }}>
                 {statistic}
@@ -107,18 +115,19 @@ export default function Header() {
     <>
       <HeaderContainer>
         <StyledHeader>
-          <StyledRow>
-            <Col span={8}>
+          <StyledRow justify='center'>
+            <Col xs={24} sm={24} md={8} lg={8} xl={8}>
               <LeftBanner>
                 <Logo $img={logo} />
-                <StyledLeftMenu mode='horizontal' defaultSelectedKeys={['1']}>
-                  <Menu.Item
-                    key='home'
-                    icon={<i className='uil uil-home-alt' />}
+                <StyledHome>
+                  <Media
+                    image={<i className='uil uil-home-alt' />}
+                    verticalAlign='center'
                   >
                     Home
-                  </Menu.Item>
-                </StyledLeftMenu>
+                  </Media>
+                </StyledHome>
+
                 <TitleWrapper>
                   <Title level={1}>
                     Asia IT
@@ -128,7 +137,7 @@ export default function Header() {
                 </TitleWrapper>
               </LeftBanner>
             </Col>
-            <Col span={16}>
+            <Col xs={24} sm={24} md={16} lg={16} xl={16}>
               <RightBanner>
                 <ToolbarWrapper mode='horizontal'>
                   <ToolbarMenu mode='horizontal'>
