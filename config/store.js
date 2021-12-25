@@ -1,17 +1,16 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { combineReducers } from 'redux';
-import saga from './saga';
-import createReducer from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddle from 'redux-saga';
+import rootReducer from './reducers.js';
+import rootSaga from './saga.js';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export default function appStore() {
-  const sagaMiddleware = createSagaMiddleware();
+export default function configureStore() {
+  const sagaMiddle = createSagaMiddle();
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(sagaMiddle))
+  );
+  sagaMiddle.run(rootSaga);
 
-  const middleware = [];
-  middleware.push(sagaMiddleware);
-
-  const createAppStore = compose(applyMiddleware(...middleware))(createStore);
-  const store = createAppStore(combineReducers(createReducer()));
-  sagaMiddleware.run(saga);
   return store;
 }

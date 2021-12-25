@@ -1,14 +1,23 @@
-import React from 'react';
-import { Button, Col, Layout, Menu, Row, Tabs, Typography } from 'antd';
+import React, { useEffect, useState } from 'react';
+import {
+  Avatar,
+  Button,
+  Col,
+  Dropdown,
+  Menu,
+  Row,
+  Tabs,
+  Typography,
+} from 'antd';
 import {
   HeaderContainer,
   InfoWrapper,
   LeftBanner,
   Logo,
+  LogoutButton,
   RightBanner,
   StyledHeader,
   StyledHome,
-  StyledLeftMenu,
   StyledMenu,
   StyledRow,
   StyledStatistic,
@@ -21,6 +30,11 @@ import {
 } from './styles';
 import logo from 'assets/images/logo.png';
 import Media from '../../../../components/Media';
+import { useSelector } from 'react-redux';
+import useFetchApi from '../../../../services/hooks/useFetchAPI';
+import { actions } from '../../../../services/actions';
+import useAuth from '../../../../services/hooks/useAuth';
+import Router from 'next/router';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -110,7 +124,50 @@ const TabDataContent = () => {
   );
 };
 
+const menuOverlay = (name, onLogout) => {
+  return (
+    <Menu>
+      <Menu.Item>
+        <Text>{name}</Text>
+      </Menu.Item>
+      <Menu.Item onClick={onLogout}>
+        <LogoutButton type='link'>Logout</LogoutButton>
+      </Menu.Item>
+    </Menu>
+  );
+};
+
 export default function Header() {
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const fetchApi = useFetchApi();
+  const [user, setUser] = useState();
+  const { logout } = useAuth();
+
+  const getUserProfile = () => {
+    fetchApi.call({
+      type: actions.user.getProfile,
+      onSuccess: (response) => {
+        setUser(response);
+      },
+      onFailure: (error) => {
+        console.error(error);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!isLogin) {
+      setUser(null);
+      return;
+    }
+
+    getUserProfile();
+  }, [isLogin]);
+
+  const onRedirectToLogin = () => {
+    Router.push('/login');
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -141,19 +198,43 @@ export default function Header() {
               <RightBanner>
                 <ToolbarWrapper mode='horizontal'>
                   <ToolbarMenu mode='horizontal'>
-                    {TOOLBAR_MENU_ITEMS.map(({ key, title }) => {
-                      return (
-                        <Menu.Item key={key}>
-                          <Media
-                            verticalAlign='center'
-                            extra={<i className='uil uil-angle-down' />}
+                    {TOOLBAR_MENU_ITEMS.map(
+                      ({ key, title, action, hideArrow }) => {
+                        return (
+                          <Menu.Item
+                            key={key}
+                            onClick={() => {
+                              if (action) action();
+                            }}
                           >
-                            <Text style={{ color: '#fff' }}>{title}</Text>
-                          </Media>
-                        </Menu.Item>
-                      );
-                    })}
+                            <Media
+                              verticalAlign='center'
+                              extra={
+                                !hideArrow && (
+                                  <i className='uil uil-angle-down' />
+                                )
+                              }
+                            >
+                              <Text style={{ color: '#fff' }}>{title}</Text>
+                            </Media>
+                          </Menu.Item>
+                        );
+                      }
+                    )}
                   </ToolbarMenu>
+                  {user ? (
+                    <Dropdown
+                      arrow
+                      overlay={menuOverlay(user.name, logout)}
+                      trigger='click'
+                    >
+                      <Avatar size='small' src={user.avatar} shape='circle' />
+                    </Dropdown>
+                  ) : (
+                    <Button type='link' onClick={onRedirectToLogin}>
+                      <Text style={{ color: '#fff' }}>Login</Text>
+                    </Button>
+                  )}
                 </ToolbarWrapper>
                 <StyledMenu mode='horizontal'>
                   {MENU_ITEMS.map(({ key, title }) => {

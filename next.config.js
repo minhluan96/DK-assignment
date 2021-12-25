@@ -3,6 +3,17 @@ const withImages = require('next-images');
 const withPlugins = require('next-compose-plugins');
 const withAntdLess = require('next-plugin-antd-less');
 
+const env = process.env.NODE_ENV || 'development';
+
+const envConfigs = {
+  development: {
+    API_URL: 'https://6164054db55edc00175c1cc9.mockapi.io/v1/',
+  },
+  production: {
+    API_URL: 'https://6164054db55edc00175c1cc9.mockapi.io/v1/',
+  },
+}[env];
+
 module.exports = withPlugins(
   [
     [
@@ -38,6 +49,7 @@ module.exports = withPlugins(
       }
       return config;
     },
+    env: envConfigs,
     sassOptions: {
       includePaths: [path.join(__dirname, 'assets')],
     },

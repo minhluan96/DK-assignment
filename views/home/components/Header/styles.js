@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Layout, Menu, Row, Statistic, Tabs } from 'antd';
+import { Button, Layout, Menu, Row, Statistic, Tabs } from 'antd';
 
 const { Header } = Layout;
 
@@ -64,7 +64,6 @@ export const StyledMenu = styled(Menu)`
 `;
 
 export const ToolbarMenu = styled(StyledMenu)`
-  justify-content: end;
   background: #181949;
 
   .ant-menu-item,
@@ -75,12 +74,18 @@ export const ToolbarMenu = styled(StyledMenu)`
 
 export const ToolbarWrapper = styled.div`
   height: 64px;
+  display: flex;
+  vertical-align: middle;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
 `;
 
 export const StyledLeftMenu = styled(StyledMenu)`
-  justify-content: end;
-
   && {
+    justify-content: end;
+    width: 80%;
+
     .ant-menu-item,
     .ant-menu-item:hover {
       padding: 0px 32px;
@@ -213,4 +218,11 @@ export const InfoWrapper = styled.div`
 export const StyledHome = styled.div`
   float: right;
   padding-right: 32px;
+`;
+
+export const LogoutButton = styled(Button)`
+  && {
+    color: red;
+    padding: 8px 0;
+  }
 `;
