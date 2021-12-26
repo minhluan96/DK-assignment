@@ -6,7 +6,7 @@ export const renderWithStore = (initialState = {}, renderFunction = render) => {
   const store = mockStore(initialState);
 
   return (component, ...args) => {
-    return renderFunction(
+    return render(
       <Provider store={store}>{component}</Provider>,
       ...args
     );

@@ -2,8 +2,10 @@ import React from 'react';
 import LoginView from 'views/login';
 import { fireEvent, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
+import { INITIAL_STATE } from '../../services/reducers/auth';
 
-const renderComponent = () => renderWithStore()(<LoginView />);
+const renderComponent = () =>
+  renderWithStore({ auth: INITIAL_STATE })(<LoginView />);
 
 describe('Login Page', () => {
   it('should show Signup on page title', () => {
@@ -14,10 +16,10 @@ describe('Login Page', () => {
   });
 
   it('should has Sign Up form', () => {
-    const { getByPlaceholderText, getByLabelText } = renderComponent();
+    const { getByPlaceholderText } = renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
-    const passwordInput = getByLabelText(/password/i);
+    const passwordInput = getByPlaceholderText(/password/i);
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
@@ -34,21 +36,25 @@ describe('Login Page', () => {
   });
 
   it('should show errors if form was empty', async () => {
-    const { getByRole, getAllByText } = renderComponent();
-    const loginButton = getByRole('button', { name: /login/i });
+    const { getByPlaceholderText, findAllByText } = renderComponent();
 
-    fireEvent.click(loginButton);
-    await waitFor(() => {
-      expect(getAllByText(/please input/i)).toBeTruthy();
-    });
+    const usernameInput = getByPlaceholderText(/username/i);
+    const passwordInput = getByPlaceholderText(/password/i);
+
+    userEvent.clear(usernameInput);
+    userEvent.clear(passwordInput);
+
+    expect(findAllByText(/Please input/i)).toBeInTheDocument();
   });
 
   it('should redirect to homepage if all fields are correct', async () => {
-    const { getByPlaceholderText, getByLabelText, getByRole } =
-      renderComponent();
+    const { getByPlaceholderText, getByRole } = renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
-    const passwordInput = getByLabelText(/password/i);
+    const passwordInput = getByPlaceholderText(/password/i);
+
+    userEvent.clear(usernameInput);
+    userEvent.clear(passwordInput);
 
     userEvent.type(usernameInput, 'Mona_Kassulke14');
     userEvent.type(passwordInput, 'EECsjlVnWIXfeuA');
@@ -57,18 +63,21 @@ describe('Login Page', () => {
 
     fireEvent.click(loginButton);
 
-    await waitFor(() => {
-      const expectPageTitle = 'Homepage';
-      expect(document.title).toEqual(expectPageTitle);
-    });
+    await waitFor(
+      () => {
+        const expectPageTitle = 'Homepage';
+        expect(document.title).toEqual(expectPageTitle);
+      },
+      { timeout: 2000 }
+    );
   });
 
   it('should show errors if email was incorrect', async () => {
-    const { getByPlaceholderText, getByLabelText, getByRole, getAllByText } =
+    const { getByPlaceholderText, getByRole, findAllByText } =
       renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
-    const passwordInput = getByLabelText(/password/i);
+    const passwordInput = getByPlaceholderText(/password/i);
 
     userEvent.type(usernameInput, 'username');
     userEvent.type(passwordInput, '123123');
@@ -78,7 +87,9 @@ describe('Login Page', () => {
     fireEvent.click(loginButton);
 
     await waitFor(() => {
-      expect(getAllByText(/incorrect username or password/i)).toBeTruthy();
+      expect(
+        findAllByText(/incorrect username or password/i)
+      ).toBeInTheDocument();
     });
   });
 });
