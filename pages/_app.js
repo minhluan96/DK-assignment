@@ -12,7 +12,6 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Homepage</title>
         <meta name='Description' content='DK Assignment' />
         <link
           href='https://unicons.iconscout.com/release/v3.0.0/css/line.css'

@@ -36,15 +36,17 @@ describe('Login Page', () => {
   });
 
   it('should show errors if form was empty', async () => {
-    const { getByPlaceholderText, findAllByText } = renderComponent();
+    const { getByPlaceholderText, getByText } =
+      renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
     const passwordInput = getByPlaceholderText(/password/i);
 
     userEvent.clear(usernameInput);
     userEvent.clear(passwordInput);
-
-    expect(findAllByText(/Please input/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getByText(/Please input username/i)).toBeInTheDocument();
+    });
   });
 
   it('should redirect to homepage if all fields are correct', async () => {
@@ -73,8 +75,7 @@ describe('Login Page', () => {
   });
 
   it('should show errors if email was incorrect', async () => {
-    const { getByPlaceholderText, getByRole, findAllByText } =
-      renderComponent();
+    const { getByPlaceholderText, getByRole, getByText } = renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
     const passwordInput = getByPlaceholderText(/password/i);
@@ -87,9 +88,7 @@ describe('Login Page', () => {
     fireEvent.click(loginButton);
 
     await waitFor(() => {
-      expect(
-        findAllByText(/incorrect username or password/i)
-      ).toBeInTheDocument();
+      expect(getByText(/incorrect username or password/i)).toBeInTheDocument();
     });
   });
 });
