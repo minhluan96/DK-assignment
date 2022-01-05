@@ -2,7 +2,9 @@ import React from 'react';
 import LoginView from 'views/login';
 import { fireEvent, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
+import axios from 'axios';
 import { INITIAL_STATE } from '../../services/reducers/auth';
+import { render } from '@testing-library/react';
 
 const renderComponent = () =>
   renderWithStore({ auth: INITIAL_STATE })(<LoginView />);
@@ -36,8 +38,7 @@ describe('Login Page', () => {
   });
 
   it('should show errors if form was empty', async () => {
-    const { getByPlaceholderText, getByText } =
-      renderComponent();
+    const { getByPlaceholderText, getByText } = renderComponent();
 
     const usernameInput = getByPlaceholderText(/username/i);
     const passwordInput = getByPlaceholderText(/password/i);
@@ -65,13 +66,10 @@ describe('Login Page', () => {
 
     fireEvent.click(loginButton);
 
-    await waitFor(
-      () => {
-        const expectPageTitle = 'Homepage';
-        expect(document.title).toEqual(expectPageTitle);
-      },
-      { timeout: 2000 }
-    );
+    await waitFor(() => {
+      const expectPageTitle = 'Homepage';
+      expect(document.title).toEqual(expectPageTitle);
+    });
   });
 
   it('should show errors if email was incorrect', async () => {
@@ -88,7 +86,7 @@ describe('Login Page', () => {
     fireEvent.click(loginButton);
 
     await waitFor(() => {
-      expect(getByText(/incorrect username or password/i)).toBeInTheDocument();
+      expect(getByText(/incorrect/i)).toBeInTheDocument();
     });
   });
 });

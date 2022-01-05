@@ -35,7 +35,6 @@ export default function LoginView() {
     form
       .validateFields()
       .then((values) => {
-        console.log('values', values)
         setError(null);
         const { username, password } = values;
         login(username, password, loginFailedCallback);
